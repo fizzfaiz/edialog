@@ -16,7 +16,7 @@
             </div>
             <div class="card-body">
                 <div class="alert alert-info py-2 mb-3">
-                    <i class="bi bi-info-circle"></i> Pengguna dari pejabat yang sama boleh mengedit maklum balas. Data disimpan secara automatik.
+                    <i class="bi bi-info-circle"></i> Maklum balas akan disimpan secara automatik.
                     <span id="autosaveStatus" class="float-end fw-bold text-success">Sedia</span>
                 </div>
 
