@@ -66,6 +66,7 @@ Kata laluan standard bagi semua akaun: **`password123`**
 
 | E-mel | Peranan | Pejabat |
 |-------|---------|---------|
+| `superadmin@example.com` | Super Admin | Semua (global) |
 | `admin_jpn@example.com` | JPN Admin | JPN Melaka |
 | `jpn_user@example.com` | JPN User | JPN Melaka |
 | `admin_ppdmt@example.com` | PPD Admin | PPD Melaka Tengah |

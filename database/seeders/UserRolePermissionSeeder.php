@@ -151,6 +151,15 @@ class UserRolePermissionSeeder extends Seeder
 
         // ===== USERS =====
         $users = [
+            // Super Admin (global access, not bound to any office)
+            [
+                'name' => 'Super Admin',
+                'email' => 'superadmin@example.com',
+                'password' => 'password123',
+                'pejabat_pendidikan_id' => null,
+                'sektor_id' => null,
+                'role' => 'Super Admin',
+            ],
             // JPN
             [
                 'name' => 'Admin JPN Melaka',

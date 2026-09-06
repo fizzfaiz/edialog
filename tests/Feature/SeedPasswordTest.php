@@ -16,6 +16,10 @@ class SeedPasswordTest extends TestCase
     {
         $this->seed(UserRolePermissionSeeder::class);
 
+        $superAdmin = User::where('email', 'superadmin@example.com')->first();
+        $this->assertNotNull($superAdmin);
+        $this->assertTrue(Hash::check('password123', $superAdmin->password));
+
         $user = User::where('email', 'admin_jpn@example.com')->first();
         $this->assertNotNull($user);
         $this->assertTrue(Hash::check('password123', $user->password));
