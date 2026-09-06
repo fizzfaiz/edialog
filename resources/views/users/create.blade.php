@@ -39,7 +39,7 @@
                     <div class="mb-3 row">
                         <label for="password" class="col-md-4 col-form-label text-md-end text-start fw-bold">Kata Laluan</label>
                         <div class="col-md-6">
-                            <input type="password" class="form-control @error('password') is-invalid @enderror" id="password" name="password" placeholder="Minimum 8 aksara">
+                            <input type="password" class="form-control @error('password') is-invalid @enderror" id="password" name="password" placeholder="Minimum 8 aksara" autocomplete="new-password">
                             @error('password')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
@@ -49,7 +49,7 @@
                     <div class="mb-3 row">
                         <label for="password_confirmation" class="col-md-4 col-form-label text-md-end text-start fw-bold">Sahkan Kata Laluan</label>
                         <div class="col-md-6">
-                            <input type="password" class="form-control" id="password_confirmation" name="password_confirmation" placeholder="Ulang kata laluan">
+                            <input type="password" class="form-control" id="password_confirmation" name="password_confirmation" placeholder="Ulang kata laluan" autocomplete="new-password">
                         </div>
                     </div>
 
