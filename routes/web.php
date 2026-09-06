@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\SektorController;
+use App\Http\Controllers\UnitController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\DialogPrestasiReportController;
 use App\Http\Controllers\SettingController;
@@ -46,6 +48,12 @@ Route::resource('dialog-prestasi', DialogPrestasiReportController::class)
 // AJAX cascading dropdowns
 Route::get('api/sektors/{pejabat}', [App\Http\Controllers\ApiController::class, 'sektorsByPejabat'])->name('api.sektors.by-pejabat');
 Route::get('api/units/{sektor}', [App\Http\Controllers\ApiController::class, 'unitsBySektor'])->name('api.units.by-sektor');
+
+// Sektor & Unit management (CRUD + reorder)
+Route::post('sektor/reorder', [SektorController::class, 'reorder'])->name('sektor.reorder');
+Route::resource('sektor', SektorController::class);
+Route::post('unit/reorder', [UnitController::class, 'reorder'])->name('unit.reorder');
+Route::resource('unit', UnitController::class);
 
 Route::get('settings', [SettingController::class, 'index'])->name('settings.index');
 Route::put('settings', [SettingController::class, 'update'])->name('settings.update');

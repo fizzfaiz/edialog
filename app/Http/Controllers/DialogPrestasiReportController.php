@@ -120,12 +120,12 @@ class DialogPrestasiReportController extends Controller
         $office = $user?->pejabatPendidikan;
         $sektors = collect();
         if ($office) {
-            if ($office->isPpd()) { $sektors = Sektor::where('pejabat_pendidikan_id', $office->id)->get(); }
-            elseif ($office->isJpn()) { $ppdIds = $office->anak()->pluck('id')->toArray(); $ppdIds[] = $office->id; $sektors = Sektor::whereIn('pejabat_pendidikan_id', $ppdIds)->get(); }
-            else { $sektors = Sektor::all(); }
+            if ($office->isPpd()) { $sektors = Sektor::where('pejabat_pendidikan_id', $office->id)->ordered()->get(); }
+            elseif ($office->isJpn()) { $ppdIds = $office->anak()->pluck('id')->toArray(); $ppdIds[] = $office->id; $sektors = Sektor::whereIn('pejabat_pendidikan_id', $ppdIds)->ordered()->get(); }
+            else { $sektors = Sektor::ordered()->get(); }
         }
         $unitsMap = [];
-        foreach ($sektors as $s) { $unitsMap[$s->id] = $s->units()->select('id', 'nama', 'sektor_id')->get(); }
+        foreach ($sektors as $s) { $unitsMap[$s->id] = $s->units()->ordered()->select('id', 'nama', 'sektor_id')->get(); }
         return view('dialog_prestasi.create', compact('sektors', 'unitsMap', 'office', 'user'));
     }
 
@@ -171,12 +171,12 @@ class DialogPrestasiReportController extends Controller
         $office = $user?->pejabatPendidikan;
         $sektors = collect();
         if ($office) {
-            if ($office->isPpd()) { $sektors = Sektor::where('pejabat_pendidikan_id', $office->id)->get(); }
-            elseif ($office->isJpn()) { $ppdIds = $office->anak()->pluck('id')->toArray(); $ppdIds[] = $office->id; $sektors = Sektor::whereIn('pejabat_pendidikan_id', $ppdIds)->get(); }
-            else { $sektors = Sektor::all(); }
+            if ($office->isPpd()) { $sektors = Sektor::where('pejabat_pendidikan_id', $office->id)->ordered()->get(); }
+            elseif ($office->isJpn()) { $ppdIds = $office->anak()->pluck('id')->toArray(); $ppdIds[] = $office->id; $sektors = Sektor::whereIn('pejabat_pendidikan_id', $ppdIds)->ordered()->get(); }
+            else { $sektors = Sektor::ordered()->get(); }
         }
         $unitsMap = [];
-        foreach ($sektors as $s) { $unitsMap[$s->id] = $s->units()->select('id', 'nama', 'sektor_id')->get(); }
+        foreach ($sektors as $s) { $unitsMap[$s->id] = $s->units()->ordered()->select('id', 'nama', 'sektor_id')->get(); }
         return view('dialog_prestasi.edit', compact('dialogPrestasiReport', 'sektors', 'unitsMap'));
     }
 

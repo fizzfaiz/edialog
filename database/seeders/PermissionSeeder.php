@@ -26,6 +26,7 @@ class PermissionSeeder extends Seeder
             'delete-dialog-prestasi',
             'feedback-dialog-prestasi',
             'manage-settings',
+            'manage-sektor-unit',
         ];
 
         // Looping and Inserting Array's Permissions into Permission Table

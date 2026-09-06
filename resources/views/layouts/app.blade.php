@@ -182,6 +182,30 @@
                      @endcanany
                     @endauth
 
+                    {{-- Sektor & Unit (Collapsible) --}}
+                    @can('manage-sektor-unit')
+                    <li class="sidebar-dropdown">
+                        <a href="#strukturSubmenu" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle sidebar-link">
+                            <i class="bi bi-diagram-3"></i>
+                            <span class="link-text">Sektor & Unit</span>
+                        </a>
+                        <ul class="collapse list-unstyled {{ request()->is('sektor*') || request()->is('unit*') ? 'show' : '' }}" id="strukturSubmenu">
+                            <li>
+                                <a href="{{ route('sektor.index') }}" class="sidebar-link ps-4">
+                                    <i class="bi bi-diagram-2"></i>
+                                    <span class="link-text">Sektor</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ route('unit.index') }}" class="sidebar-link ps-4">
+                                    <i class="bi bi-stack"></i>
+                                    <span class="link-text">Unit</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    @endcan
+
                     {{-- Tetapan --}}
                     @can('manage-settings')
                     <li class="{{ request()->is('settings*') ? 'active' : '' }}">

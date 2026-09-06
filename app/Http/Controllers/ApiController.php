@@ -25,6 +25,7 @@ class ApiController extends Controller
 
         $sektors = Sektor::where('pejabat_pendidikan_id', $pejabatId)
             ->select('id', 'nama', 'kod')
+            ->orderBy('sort_order')
             ->orderBy('nama')
             ->get();
 
@@ -41,6 +42,7 @@ class ApiController extends Controller
 
         $units = Unit::where('sektor_id', $sektorId)
             ->select('id', 'nama', 'kod')
+            ->orderBy('sort_order')
             ->orderBy('nama')
             ->get();
 

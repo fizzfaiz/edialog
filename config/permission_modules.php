@@ -49,6 +49,7 @@ return [
         'role'     => 'Peranan (Roles)',
         'user'     => 'Pengguna (Users)',
         'dialog-prestasi'   => 'Dialog Prestasi',
+        'sektor-unit'       => 'Sektor & Unit',
         'settings' => 'Tetapan Sistem',
     ],
 
@@ -65,6 +66,7 @@ return [
         'role'            => 'bi-shield-lock',
         'user'            => 'bi-people-fill',
         'dialog-prestasi'          => 'bi-file-earmark-text',
+        'sektor-unit'       => 'bi-diagram-3',
         'manage-settings' => 'bi-gear',
     ],
 

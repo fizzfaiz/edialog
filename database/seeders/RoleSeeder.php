@@ -43,6 +43,7 @@ class RoleSeeder extends Seeder
             'create-user', 'edit-user', 'delete-user',
             'create-role', 'edit-role', 'delete-role',
             'manage-settings',
+            'manage-sektor-unit',
         ]);
 
         $jpnUser = Role::firstOrCreate(['name' => 'JPN User']);
@@ -54,6 +55,7 @@ class RoleSeeder extends Seeder
         $ppdAdmin->syncPermissions([
             'view-dialog-prestasi', 'create-dialog-prestasi', 'edit-dialog-prestasi', 'delete-dialog-prestasi', 'feedback-dialog-prestasi',
             'create-user', 'edit-user',
+            'manage-sektor-unit',
         ]);
 
         $ppdUser = Role::firstOrCreate(['name' => 'PPD User']);

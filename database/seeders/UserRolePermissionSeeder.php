@@ -33,6 +33,8 @@ class UserRolePermissionSeeder extends Seeder
             'delete-role',
             // Settings
             'manage-settings',
+            // Sektor & Unit management
+            'manage-sektor-unit',
         ];
 
         foreach ($permissions as $perm) {
@@ -49,6 +51,7 @@ class UserRolePermissionSeeder extends Seeder
                 'create-user', 'edit-user', 'delete-user',
                 'create-role', 'edit-role', 'delete-role',
                 'manage-settings',
+                'manage-sektor-unit',
             ],
 
             'JPN User' => [
@@ -58,6 +61,7 @@ class UserRolePermissionSeeder extends Seeder
             'PPD Admin' => [
                 'view-dialog-prestasi', 'create-dialog-prestasi', 'edit-dialog-prestasi', 'delete-dialog-prestasi', 'feedback-dialog-prestasi',
                 'create-user', 'edit-user',
+                'manage-sektor-unit',
             ],
 
             'PPD User' => [

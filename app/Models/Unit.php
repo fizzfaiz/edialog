@@ -17,7 +17,13 @@ class Unit extends Model
         'nama',
         'kod',
         'sektor_id',
+        'sort_order',
     ];
+
+    public function scopeOrdered($query)
+    {
+        return $query->orderBy('sort_order')->orderBy('nama');
+    }
 
     public function sektor(): BelongsTo
     {

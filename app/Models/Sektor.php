@@ -17,7 +17,13 @@ class Sektor extends Model
         'nama',
         'kod',
         'pejabat_pendidikan_id',
+        'sort_order',
     ];
+
+    public function scopeOrdered($query)
+    {
+        return $query->orderBy('sort_order')->orderBy('nama');
+    }
 
     public function pejabatPendidikan(): BelongsTo
     {
