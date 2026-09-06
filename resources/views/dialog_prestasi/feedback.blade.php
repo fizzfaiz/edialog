@@ -22,46 +22,34 @@
 
                 <input type="hidden" id="report_id" value="{{ $dialogPrestasiReport->id }}">
 
-                <div class="mb-3 row">
-                    <label for="tarikh" class="col-md-4 col-form-label text-md-end text-start">Tarikh</label>
-                    <div class="col-md-6">
-                        <input type="date" class="form-control" id="tarikh" value="{{ old('tarikh', $dialogPrestasiReport->tarikh->format('Y-m-d')) }}" disabled>
-                    </div>
+                <div class="mb-2 row">
+                    <div class="col-md-4 text-md-end text-start fw-bold">Tarikh</div>
+                    <div class="col-md-6">{{ $dialogPrestasiReport->tarikh ? $dialogPrestasiReport->tarikh->format('d/m/Y') : '-' }}</div>
                 </div>
 
-                <div class="mb-3 row">
-                    <label for="hari" class="col-md-4 col-form-label text-md-end text-start">Hari</label>
-                    <div class="col-md-6">
-                        <input type="text" class="form-control" id="hari" value="{{ old('hari', $dialogPrestasiReport->hari) }}" disabled>
-                    </div>
+                <div class="mb-2 row">
+                    <div class="col-md-4 text-md-end text-start fw-bold">Hari</div>
+                    <div class="col-md-6">{{ $dialogPrestasiReport->hari ?: '-' }}</div>
                 </div>
 
-                <div class="mb-3 row">
-                    <label for="masa" class="col-md-4 col-form-label text-md-end text-start">Masa</label>
-                    <div class="col-md-6">
-                        <input type="time" class="form-control" id="masa" value="{{ old('masa', $dialogPrestasiReport->masa->format('H:i')) }}" disabled>
-                    </div>
+                <div class="mb-2 row">
+                    <div class="col-md-4 text-md-end text-start fw-bold">Masa</div>
+                    <div class="col-md-6">{{ $dialogPrestasiReport->masa ? $dialogPrestasiReport->masa->format('H:i') : '-' }}</div>
                 </div>
 
-                <div class="mb-3 row">
-                    <label for="tempat" class="col-md-4 col-form-label text-md-end text-start">Tempat</label>
-                    <div class="col-md-6">
-                        <input type="text" class="form-control" id="tempat" value="{{ old('tempat', $dialogPrestasiReport->tempat) }}" disabled>
-                    </div>
+                <div class="mb-2 row">
+                    <div class="col-md-4 text-md-end text-start fw-bold">Tempat</div>
+                    <div class="col-md-6">{{ $dialogPrestasiReport->tempat ?: '-' }}</div>
                 </div>
 
-                <div class="mb-3 row">
-                    <label for="kategori" class="col-md-4 col-form-label text-md-end text-start">Kategori</label>
-                    <div class="col-md-6">
-                        <input type="text" class="form-control" id="kategori" value="{{ $dialogPrestasiReport->kategori ?: '-' }}" disabled>
-                    </div>
+                <div class="mb-2 row">
+                    <div class="col-md-4 text-md-end text-start fw-bold">Kategori</div>
+                    <div class="col-md-6">{{ $dialogPrestasiReport->kategori ?: '-' }}</div>
                 </div>
 
-                <div class="mb-3 row">
-                    <label for="pengerusi" class="col-md-4 col-form-label text-md-end text-start">Pengerusi</label>
-                    <div class="col-md-6">
-                        <input type="text" class="form-control" id="pengerusi" value="{{ old('pengerusi', $dialogPrestasiReport->pengerusi) }}" disabled>
-                    </div>
+                <div class="mb-2 row">
+                    <div class="col-md-4 text-md-end text-start fw-bold">Pengerusi</div>
+                    <div class="col-md-6">{{ $dialogPrestasiReport->pengerusi ?: '-' }}</div>
                 </div>
 
                 <h6 class="text-primary fw-bold mt-4">KEHADIRAN</h6>
@@ -80,8 +68,8 @@
                             @forelse ($dialogPrestasiReport->attendances as $index => $attendance)
                                 <tr>
                                     <td><input type="number" class="form-control" value="{{ $index + 1 }}" disabled></td>
-                                    <td><input type="text" class="form-control" value="{{ $attendance->nama }}" disabled></td>
-                                    <td><input type="text" class="form-control" value="{{ $attendance->jawatan }}" disabled></td>
+                                    <td>{{ $attendance->nama }}</td>
+                                    <td>{{ $attendance->jawatan }}</td>
                                 </tr>
                             @empty
                                 <tr>
@@ -141,9 +129,9 @@
                                 @endphp
                                 <tr>
                                     <td class="text-center"><span class="fw-bold">{{ $index + 1 }}</span></td>
-                                    <td><textarea class="form-control" rows="2" disabled>{{ $issue->fokus }}</textarea></td>
-                                    <td><textarea class="form-control" rows="2" disabled>{{ $issue->isu }}</textarea></td>
-                                    <td><textarea class="form-control" rows="2" disabled>{{ $issue->tindakan }}</textarea></td>
+                                    <td>{{ $issue->fokus }}</td>
+                                    <td>{{ $issue->isu }}</td>
+                                    <td>{{ $issue->tindakan }}</td>
                                     <td>
                                         <div class="fw-bold small">{{ $issue->taggedSektor?->nama ?? '-' }}</div>
                                         <div class="text-muted small">{{ $issue->taggedUnit?->nama ?? '-' }}</div>
@@ -175,9 +163,9 @@
                             @empty
                                 <tr>
                                     <td class="text-center"><span class="fw-bold">1</span></td>
-                                    <td><textarea class="form-control" rows="2" disabled></textarea></td>
-                                    <td><textarea class="form-control" rows="2" disabled></textarea></td>
-                                    <td><textarea class="form-control" rows="2" disabled></textarea></td>
+                                    <td>-</td>
+                                    <td>-</td>
+                                    <td>-</td>
                                     <td>-</td>
                                     <td><textarea class="form-control autosave-field" rows="3"></textarea></td>
                                     <td>
@@ -197,32 +185,24 @@
                 <h6 class="text-primary fw-bold mt-4">PENGESAHAN</h6>
                 <hr>
 
-                <div class="mb-3 row">
-                    <label for="dicatat_oleh" class="col-md-4 col-form-label text-md-end text-start">Dicatat Oleh</label>
-                    <div class="col-md-6">
-                        <input type="text" class="form-control" id="dicatat_oleh" value="{{ old('dicatat_oleh', $dialogPrestasiReport->dicatat_oleh) }}" disabled>
-                    </div>
+                <div class="mb-2 row">
+                    <div class="col-md-4 text-md-end text-start fw-bold">Dicatat Oleh</div>
+                    <div class="col-md-6">{{ $dialogPrestasiReport->dicatat_oleh ?: '-' }}</div>
                 </div>
 
-                <div class="mb-3 row">
-                    <label for="jawatan_pencatat" class="col-md-4 col-form-label text-md-end text-start">Jawatan Pencatat</label>
-                    <div class="col-md-6">
-                        <input type="text" class="form-control" id="jawatan_pencatat" value="{{ old('jawatan_pencatat', $dialogPrestasiReport->jawatan_pencatat) }}" disabled>
-                    </div>
+                <div class="mb-2 row">
+                    <div class="col-md-4 text-md-end text-start fw-bold">Jawatan Pencatat</div>
+                    <div class="col-md-6">{{ $dialogPrestasiReport->jawatan_pencatat ?: '-' }}</div>
                 </div>
 
-                <div class="mb-3 row">
-                    <label for="disahkan_oleh" class="col-md-4 col-form-label text-md-end text-start">Disahkan Oleh</label>
-                    <div class="col-md-6">
-                        <input type="text" class="form-control" id="disahkan_oleh" value="{{ old('disahkan_oleh', $dialogPrestasiReport->disahkan_oleh) }}" disabled>
-                    </div>
+                <div class="mb-2 row">
+                    <div class="col-md-4 text-md-end text-start fw-bold">Disahkan Oleh</div>
+                    <div class="col-md-6">{{ $dialogPrestasiReport->disahkan_oleh ?: '-' }}</div>
                 </div>
 
-                <div class="mb-3 row">
-                    <label for="jawatan_pengesah" class="col-md-4 col-form-label text-md-end text-start">Jawatan Pengesah</label>
-                    <div class="col-md-6">
-                        <input type="text" class="form-control" id="jawatan_pengesah" value="{{ old('jawatan_pengesah', $dialogPrestasiReport->jawatan_pengesah) }}" disabled>
-                    </div>
+                <div class="mb-2 row">
+                    <div class="col-md-4 text-md-end text-start fw-bold">Jawatan Pengesah</div>
+                    <div class="col-md-6">{{ $dialogPrestasiReport->jawatan_pengesah ?: '-' }}</div>
                 </div>
 
             </div>
