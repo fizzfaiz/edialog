@@ -10,11 +10,16 @@ class SektorJpnSeeder extends Seeder
 {
     public function run(): void
     {
-        // Find or create JPN Melaka
-        $jpn = PejabatPendidikan::firstOrCreate(
-            ['kod' => 'JPNMLK'],
-            ['nama' => 'JPN Melaka', 'jenis' => 'jpn']
-        );
+        // Find existing JPN (Negeri) office — avoid creating a duplicate.
+        $jpn = PejabatPendidikan::where('jenis', 'jpn')->first();
+
+        if (! $jpn) {
+            $jpn = PejabatPendidikan::create([
+                'kod' => 'JPN-MELAKA',
+                'nama' => 'JPN Melaka',
+                'jenis' => 'jpn',
+            ]);
+        }
 
         echo "JPN: ID={$jpn->id} - {$jpn->nama}\n";
 
