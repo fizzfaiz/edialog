@@ -92,14 +92,14 @@
                         <tbody id="attendancesBody">
                             @forelse ($dialogPrestasiReport->attendances as $index => $attendance)
                                 <tr>
-                                    <td><input type="number" class="form-control att-bil-input" value="{{ $index + 1 }}" min="1" readonly></td>
+                                    <td class="text-center"><span class="att-bil-text fw-bold">{{ $index + 1 }}</span></td>
                                     <td><input type="text" name="attendances[{{ $index }}][nama]" class="form-control autosave-field" value="{{ $attendance->nama }}"></td>
                                     <td><input type="text" name="attendances[{{ $index }}][jawatan]" class="form-control autosave-field" value="{{ $attendance->jawatan }}"></td>
                                     <td class="text-center"><button type="button" class="btn btn-danger btn-sm remove-att-row"><i class="bi bi-trash"></i> Buang</button></td>
                                 </tr>
                             @empty
                                 <tr>
-                                    <td><input type="number" class="form-control att-bil-input" value="1" min="1" readonly></td>
+                                    <td class="text-center"><span class="att-bil-text fw-bold">1</span></td>
                                     <td><input type="text" name="attendances[0][nama]" class="form-control autosave-field"></td>
                                     <td><input type="text" name="attendances[0][jawatan]" class="form-control autosave-field"></td>
                                     <td class="text-center"><button type="button" class="btn btn-danger btn-sm remove-att-row"><i class="bi bi-trash"></i> Buang</button></td>
@@ -375,7 +375,7 @@
         const tbody = document.getElementById('attendancesBody');
         const tr = document.createElement('tr');
         tr.innerHTML = `
-            <td><input type="number" class="form-control att-bil-input" value="${attRowIndex + 1}" min="1" readonly></td>
+            <td class="text-center"><span class="att-bil-text fw-bold">${attRowIndex + 1}</span></td>
             <td><input type="text" name="attendances[${attRowIndex}][nama]" class="form-control autosave-field"></td>
             <td><input type="text" name="attendances[${attRowIndex}][jawatan]" class="form-control autosave-field"></td>
             <td class="text-center"><button type="button" class="btn btn-danger btn-sm remove-att-row"><i class="bi bi-trash"></i> Buang</button></td>
@@ -417,7 +417,7 @@
             const tbody = document.getElementById('attendancesBody');
             const tr = document.createElement('tr');
             tr.innerHTML =
-                '<td><input type="number" class="form-control att-bil-input" value="' + (attRowIndex + 1) + '" min="1" readonly></td>' +
+                '<td class="text-center"><span class="att-bil-text fw-bold">' + (attRowIndex + 1) + '</span></td>' +
                 '<td><input type="text" name="attendances[' + attRowIndex + '][nama]" class="form-control autosave-field" value="' + names[i] + '"></td>' +
                 '<td><input type="text" name="attendances[' + attRowIndex + '][jawatan]" class="form-control autosave-field"></td>' +
                 '<td class="text-center"><button type="button" class="btn btn-danger btn-sm remove-att-row"><i class="bi bi-trash"></i> Buang</button></td>';
@@ -432,8 +432,8 @@
     function renumberAttendanceRows() {
         const rows = document.querySelectorAll('#attendancesBody tr');
         rows.forEach((row, index) => {
-            const bilInput = row.querySelector('.att-bil-input');
-            bilInput.value = index + 1;
+            const bilText = row.querySelector('.att-bil-text');
+            if (bilText) bilText.textContent = index + 1;
             row.querySelector('input[name*="[nama]"]').name = `attendances[${index}][nama]`;
             row.querySelector('input[name*="[jawatan]"]').name = `attendances[${index}][jawatan]`;
         });
