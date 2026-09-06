@@ -14,7 +14,7 @@ class JpnSectorApiTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function test_jpn_admin_can_load_child_ppd_sectors_when_jpn_office_is_selected(): void
+    public function test_jpn_admin_can_load_sektors_for_a_selected_ppd(): void
     {
         Permission::firstOrCreate(['name' => 'view-dialog-prestasi']);
         Permission::firstOrCreate(['name' => 'create-dialog-prestasi']);
@@ -34,7 +34,7 @@ class JpnSectorApiTest extends TestCase
         ]);
         $user->assignRole($role);
 
-        $response = $this->actingAs($user)->getJson('/api/sektors/' . $jpn->id);
+        $response = $this->actingAs($user)->getJson('/api/sektors/' . $ppd->id);
 
         $response->assertOk();
         $response->assertJsonFragment(['id' => $sector->id, 'nama' => 'Sektor Ujian']);

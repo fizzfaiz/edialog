@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Sektor;
 use App\Models\Unit;
-use App\Models\PejabatPendidikan;
 use App\Http\Controllers\Traits\ScopesUserRegistration;
 use Illuminate\Http\JsonResponse;
 
@@ -24,13 +23,7 @@ class ApiController extends Controller
             abort(403);
         }
 
-        $pejabatIds = [(int) $pejabatId];
-        $pejabat = PejabatPendidikan::find($pejabatId);
-        if ($pejabat && $pejabat->isJpn()) {
-            $pejabatIds = array_merge($pejabatIds, $pejabat->anak()->pluck('id')->map(fn ($id) => (int) $id)->all());
-        }
-
-        $sektors = Sektor::whereIn('pejabat_pendidikan_id', $pejabatIds)
+        $sektors = Sektor::where('pejabat_pendidikan_id', $pejabatId)
             ->select('id', 'nama', 'kod')
             ->orderBy('nama')
             ->get();
