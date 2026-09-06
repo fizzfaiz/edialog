@@ -12,12 +12,14 @@ window.jQuery = $;
 // =============================================
 
 (function () {
-    // Apply theme immediately (before DOMContentLoaded) to prevent flash
+    // Apply theme immediately (before DOMContentLoaded) to prevent flash.
+    // localStorage (navbar quick toggle) overrides the server-rendered user setting.
     const savedTheme = localStorage.getItem('theme');
-    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
 
-    if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
+    if (savedTheme === 'dark') {
         document.documentElement.classList.add('dark-mode');
+    } else if (savedTheme === 'light') {
+        document.documentElement.classList.remove('dark-mode');
     }
 })();
 
@@ -27,6 +29,20 @@ document.addEventListener('DOMContentLoaded', function () {
     const themeIconDark = document.getElementById('themeIconDark');
     const themeIconLight = document.getElementById('themeIconLight');
     const appHtml = document.getElementById('appHtml');
+
+    function persistTheme(theme) {
+        const csrf = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
+        if (!csrf) return;
+        fetch('/settings/theme', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': csrf,
+                'Accept': 'application/json'
+            },
+            body: JSON.stringify({ theme: theme })
+        }).catch(function () {});
+    }
 
     function setTheme(isDark) {
         if (isDark) {
@@ -40,6 +56,7 @@ document.addEventListener('DOMContentLoaded', function () {
             themeIconDark.classList.remove('d-none');
             localStorage.setItem('theme', 'light');
         }
+        persistTheme(isDark ? 'dark' : 'light');
     }
 
     // Initialize icon states based on current theme

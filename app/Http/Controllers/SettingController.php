@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\UserSetting;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -30,6 +31,7 @@ class SettingController extends Controller
         $validated = $request->validate([
             'font_family' => ['required', 'string', 'in:Inter,Nunito,system-ui,Arial'],
             'font_size' => ['required', 'string', 'in:small,medium,large'],
+            'theme' => ['required', 'string', 'in:light,dark'],
         ]);
 
         $user = auth()->user();
@@ -42,5 +44,19 @@ class SettingController extends Controller
 
         return redirect()->route('settings.index')
             ->withSuccess('Tetapan berjaya disimpan.');
+    }
+
+    public function updateTheme(Request $request): JsonResponse
+    {
+        $validated = $request->validate([
+            'theme' => ['required', 'string', 'in:light,dark'],
+        ]);
+
+        UserSetting::updateOrCreate(
+            ['user_id' => auth()->id()],
+            ['theme' => $validated['theme']]
+        );
+
+        return response()->json(['success' => true]);
     }
 }

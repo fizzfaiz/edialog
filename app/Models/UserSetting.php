@@ -16,6 +16,7 @@ class UserSetting extends Model
         'user_id',
         'font_family',
         'font_size',
+        'theme',
     ];
 
     public function user(): BelongsTo

@@ -1,5 +1,11 @@
+@php
+    $userSettings = null;
+    if (auth()->check() && \Illuminate\Support\Facades\Schema::hasTable('user_settings')) {
+        $userSettings = \App\Models\UserSetting::where('user_id', auth()->id())->first();
+    }
+@endphp
 <!doctype html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" id="appHtml">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" id="appHtml" class="{{ ($userSettings->theme ?? 'light') === 'dark' ? 'dark-mode' : '' }}">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -15,11 +21,6 @@
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
         @auth
         @php
-            $userSettings = null;
-            if (\Illuminate\Support\Facades\Schema::hasTable('user_settings')) {
-                $userSettings = \App\Models\UserSetting::where('user_id', auth()->id())->first();
-            }
-
             $fontFamily = $userSettings->font_family ?? 'Inter';
             $fontSize = $userSettings->font_size ?? 'medium';
 

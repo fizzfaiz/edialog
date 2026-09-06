@@ -55,6 +55,26 @@
                         </div>
                     </div>
 
+                    <div class="mb-4 row">
+                        <label class="col-md-4 col-form-label text-md-end text-start">Mod Tema</label>
+                        <div class="col-md-6">
+                            <div class="d-flex gap-2" id="themeOptions">
+                                <input type="radio" class="btn-check" id="theme_light" name="theme" value="light" {{ old('theme', $settings->theme ?? 'light') == 'light' ? 'checked' : '' }}>
+                                <label class="btn btn-outline-secondary flex-fill" for="theme_light">
+                                    <i class="bi bi-sun"></i> Terang
+                                </label>
+
+                                <input type="radio" class="btn-check" id="theme_dark" name="theme" value="dark" {{ old('theme', $settings->theme ?? '') == 'dark' ? 'checked' : '' }}>
+                                <label class="btn btn-outline-secondary flex-fill" for="theme_dark">
+                                    <i class="bi bi-moon-stars"></i> Gelap
+                                </label>
+                            </div>
+                            @error('theme')
+                                <div class="text-danger mt-1 small">{{ $message }}</div>
+                            @enderror
+                        </div>
+                    </div>
+
                     {{-- Preview --}}
                     <div class="mb-4 row">
                         <div class="col-md-6 offset-md-4">

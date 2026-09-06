@@ -57,3 +57,4 @@ Route::resource('unit', UnitController::class);
 
 Route::get('settings', [SettingController::class, 'index'])->name('settings.index');
 Route::put('settings', [SettingController::class, 'update'])->name('settings.update');
+Route::post('settings/theme', [SettingController::class, 'updateTheme'])->name('settings.theme');
