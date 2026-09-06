@@ -29,7 +29,7 @@
                         <i class="bi bi-folder2-open"></i> {{ $sektorLabel }}
                         <small class="text-muted fw-normal">(seret untuk susun semula)</small>
                     </h6>
-                    <ul class="list-group sortable-unit mb-3">
+                    <ul class="list-group sortable-unit mb-3" data-sektor-id="{{ $items->first()->sektor_id }}">
                         @foreach ($items as $unit)
                         <li class="list-group-item d-flex justify-content-between align-items-center" data-id="{{ $unit->id }}">
                             <span class="d-flex align-items-center">
@@ -63,10 +63,13 @@
 <script>
 document.querySelectorAll('.sortable-unit').forEach(el => {
     new Sortable(el, {
+        group: 'units',
         handle: '.handle',
         animation: 150,
-        onEnd: function () {
-            const order = Array.from(el.children).map(li => li.getAttribute('data-id'));
+        onEnd: function (evt) {
+            const targetList = evt.to;
+            const sektorId = targetList.getAttribute('data-sektor-id');
+            const order = Array.from(targetList.children).map(li => li.getAttribute('data-id'));
             fetch('{{ route('unit.reorder') }}', {
                 method: 'POST',
                 headers: {
@@ -74,7 +77,7 @@ document.querySelectorAll('.sortable-unit').forEach(el => {
                     'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
                     'Accept': 'application/json'
                 },
-                body: JSON.stringify({ order: order })
+                body: JSON.stringify({ sektor_id: sektorId, order: order })
             });
         }
     });

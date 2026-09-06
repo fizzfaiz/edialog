@@ -68,4 +68,21 @@ class SektorUnitManagementTest extends TestCase
         $unit = Unit::where('kod', 'PPDMT01-01')->first();
         $this->actingAs($user)->postJson(route('unit.reorder'), ['order' => [$unit->id]])->assertOk();
     }
+
+    public function test_ppd_admin_can_move_unit_to_another_sektor(): void
+    {
+        $user = $this->ppdAdmin();
+
+        $sektor1 = Sektor::create(['nama' => 'Sektor Akademik', 'kod' => 'PPDMT-01', 'pejabat_pendidikan_id' => $user->pejabat_pendidikan_id]);
+        $sektor2 = Sektor::create(['nama' => 'Sektor Kewangan', 'kod' => 'PPDMT-02', 'pejabat_pendidikan_id' => $user->pejabat_pendidikan_id]);
+
+        $unit = Unit::create(['nama' => 'Unit Rendah', 'kod' => 'PPDMT01-01', 'sektor_id' => $sektor1->id]);
+
+        $this->actingAs($user)->postJson(route('unit.reorder'), [
+            'sektor_id' => $sektor2->id,
+            'order' => [$unit->id],
+        ])->assertOk();
+
+        $this->assertDatabaseHas('units', ['id' => $unit->id, 'sektor_id' => $sektor2->id, 'sort_order' => 0]);
+    }
 }

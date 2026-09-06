@@ -103,7 +103,12 @@ class UnitController extends Controller
     public function reorder(Request $request): JsonResponse
     {
         $ids = (array) $request->input('order', []);
+        $sektorId = $request->input('sektor_id');
         $scope = $this->registrationScope();
+
+        if ($sektorId) {
+            $this->authorizeSektorId($sektorId);
+        }
 
         foreach ($ids as $index => $id) {
             $unit = Unit::find($id);
@@ -113,7 +118,11 @@ class UnitController extends Controller
             if (! $scope['full'] && ! in_array((int) $unit->sektor->pejabat_pendidikan_id, array_map('intval', $scope['pejabat_ids']), true)) {
                 continue;
             }
-            $unit->update(['sort_order' => $index]);
+            $data = ['sort_order' => $index];
+            if ($sektorId) {
+                $data['sektor_id'] = $sektorId;
+            }
+            $unit->update($data);
         }
 
         return response()->json(['success' => true]);
