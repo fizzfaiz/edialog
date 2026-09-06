@@ -34,7 +34,8 @@ class ApiController extends Controller
     public function unitsBySektor($sektorId): JsonResponse
     {
         $scope = $this->registrationScope();
-        if (!$this->sektorInScope($scope, $sektorId)) {
+        $sektor = Sektor::find($sektorId);
+        if (! $sektor || ! $this->pejabatInScope($scope, $sektor->pejabat_pendidikan_id)) {
             abort(403);
         }
 
