@@ -71,6 +71,7 @@ Kata laluan standard bagi semua akaun: **`password123`**
 | `jpn_user@example.com` | JPN User | JPN Melaka |
 | `admin_ppdmt@example.com` | PPD Admin | PPD Melaka Tengah |
 | `ppd_user_mt@example.com` | PPD User | PPD Melaka Tengah |
+| `sektor_admin_mt@example.com` | Sektor Admin | PPD Melaka Tengah (Sektor Akademik) |
 | `admin_ppdag@example.com` | PPD Admin | PPD Alor Gajah |
 | `ppd_user_ag@example.com` | PPD User | PPD Alor Gajah |
 | `admin_ppdjs@example.com` | PPD Admin | PPD Jasin |

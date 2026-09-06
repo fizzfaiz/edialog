@@ -144,10 +144,19 @@ class UserRolePermissionSeeder extends Seeder
 
         // ===== SEKTOR (untuk user assignment) =====
         $sektorJpn = Sektor::where('pejabat_pendidikan_id', $jpnMelaka->id)->first();
-        // Get first sektor for each PPD
+        // Get (or create) first sektor for each PPD so users can be linked to a sektor
         $sektorMT = Sektor::where('pejabat_pendidikan_id', $ppdMelakaTengah->id)->first();
+        if (! $sektorMT) {
+            $sektorMT = Sektor::create(['nama' => 'Sektor Akademik', 'kod' => 'PPDMT-01', 'pejabat_pendidikan_id' => $ppdMelakaTengah->id]);
+        }
         $sektorAG = Sektor::where('pejabat_pendidikan_id', $ppdAlorGajah->id)->first();
+        if (! $sektorAG) {
+            $sektorAG = Sektor::create(['nama' => 'Sektor Akademik', 'kod' => 'PPDAG-01', 'pejabat_pendidikan_id' => $ppdAlorGajah->id]);
+        }
         $sektorJS = Sektor::where('pejabat_pendidikan_id', $ppdJasin->id)->first();
+        if (! $sektorJS) {
+            $sektorJS = Sektor::create(['nama' => 'Sektor Akademik', 'kod' => 'PPDJS-01', 'pejabat_pendidikan_id' => $ppdJasin->id]);
+        }
 
         // ===== USERS =====
         $users = [
@@ -227,6 +236,15 @@ class UserRolePermissionSeeder extends Seeder
                 'pejabat_pendidikan_id' => $ppdJasin->id,
                 'sektor_id' => $sektorJS?->id,
                 'role' => 'PPD User',
+            ],
+            // Sektor Admin (PPD Melaka Tengah)
+            [
+                'name' => 'Admin Sektor PPD Melaka Tengah',
+                'email' => 'sektor_admin_mt@example.com',
+                'password' => 'password123',
+                'pejabat_pendidikan_id' => $ppdMelakaTengah->id,
+                'sektor_id' => $sektorMT->id,
+                'role' => 'Sektor Admin',
             ],
         ];
 
